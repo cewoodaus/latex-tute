@@ -1,0 +1,663 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fullpage}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+
+\begin{document}
+\title{Installation and Basics in \LaTeX}
+\author{Carolyn Wood\\
+PAIN UQ Physics Club}
+\date{August 5 2013}
+\maketitle
+
+\begin{abstract}
+
+LaTeX is a typesetting language which allows you to create professional-looking documents without worrying about the formatting. It is extensively used in scientific journals. If you have started 2nd year labs you may have already been introduced to it.
+
+The purpose of this tutorial is not to make you an expert in LaTeX, but to give you the kick start which will allow you to immediately produce simple documents without having to know all the ins and outs.
+The best way to learn LaTeX properly is to use it, so perhaps the most important part of this tutorial is the `Final Advice' section, and the References, which you can use to find out how to do just about anything LaTeX can do.
+\end{abstract}
+
+\section{Installation}
+
+LaTeX is simple to install, and free!
+
+You will need to install two things: The LaTeX documentation, and a text editor.
+In this tutorial we will be using pdfLaTeX, which compiles what you write into the text editor straight to a pdf file. This is the simplest way to use LaTeX when you are just starting out.
+
+Regular LaTeX compiles first to a dvi file (which some users might need a special reader for) which then needs to be converted to a pdf file. It also only supports .eps graphics files, so a user would need a package such as Ghostscript to handle the file conversions. 
+
+For this tutorial, you will simply need two things:
+
+\begin{enumerate}
+  \item{The LaTeX documentation\\
+  If you are a Windows user, we recommend MikTeX for your documentation:\\
+  \url{http://miktex.org/download} \\
+  (If you have a couple of hours to spare, install the full package, otherwise the `Basic' package will be fine).\\
+  
+  If you are a Mac or Linux user, you can use TeXLive, which you can find here:\\
+  \url{http://www.tug.org/texlive/acquire-netinstall.html}\\
+  OR \\
+  \url{http://latex-project.org/ftp.html}}\\
+  Windows users can also install TeXLive.
+  
+  Linux users may find they already have a version of TeXLive installed. You can check for installations of TeXLive (and which version they are) in the terminal window. The command varies with the flavour of Linux, but a quick search for the equivalent of `rpm' or `dpkg' on the internet should provide you with information on how to do this.
+  
+  Check your version is the latest by comparing it with the one offered on the TeXLive link above.
+  
+  \item{Text Editors\\
+  By far the most user-friendly text editor is Texmaker, so we recommend it for beginners:\\
+  \url{http://www.xm1math.net/texmaker/}\\
+  Other text editors which support the tex language, such as Emacs, gedit and kate are also great, but better for people with some programming experience. You might like to check them out later.} 
+\end{enumerate}
+
+
+\section{Creating a Document}
+
+LaTeX commands begin with a backslash:
+\begin{verbatim}
+\documentclass{article}
+\end{verbatim} 
+
+The braces (curly brackets) are used to enclose the argument of the command, with other optional parameters in square brackets. 
+
+Remember all these commands are case-sensitive!
+
+All a LaTeX document really requires is a statement declaring the type of document we want to write, and a declaration of the beginning and end of the main document:
+
+\begin{verbatim}
+\documentclass[a4paper]{article}
+\begin{document}
+This is the text you want in your document.
+\end{document}
+\end{verbatim}
+
+Type the above three lines into a blank text file within Texmaker, with some text which you would like in your document, and save the file as `test.tex.'
+In Texmaker, click on Tools and select `pdfLaTeX.' This compiles your document straight to a pdf file. You should see a preview of the document, with the text you added in displayed. The pdf file can also be set to be viewed in a different way - e.g. Adobe Reader. Whenever you make a change to your document within the text file, you can recompile in order to view the changes. You can use this method, or the shortcut arrow near the top of the window. Don't be scared to play around with settings in Texmaker (teaching them is beyond the scope of this tutorial) and don't forget to save often!
+\medskip
+
+Congratulations, you have created your first LaTeX document!
+\medskip
+
+Obviously we can't stop here though. If you typed a whole paragraph into your document you might have noticed that the margins of the document are very wide. You are also missing a title, sections and section headings. So now, let's break down the basic structure of a document. 
+
+\subsection{Preamble}
+All LaTeX documents begin with a preamble. This is where we declare all the formatting we want applied to the entire document, as well as the packages we want to load.
+
+The document class statement at the start of your document tells LaTeX whether you are writing a journal article, book or some other generic format. We can also add other specifications, such as font size, paper size, columns, etc. In the example above, we used the article format (good for short documents - like lab reports) and told LaTeX to format for a4paper (the default is letter paper).
+
+Following this line, we now list the packages we want to load. These will depend on what we are intending to include in the main document. For instance, if I am going to be including equations in my document, I want to load \texttt{amsmath}, or a similar package which includes mathematical symbols.
+To do this I would add a line to the above example:
+
+\begin{verbatim}
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+
+\begin{document}
+This is the text you want in your document.
+\end{document}
+\end{verbatim}
+
+Remember those wide default margins? To make better use of the space, or to fit in with assignment requirements, we can load \texttt{fullpage}:
+\begin{verbatim}
+\usepackage{fullpage}
+\end{verbatim}
+
+Add these two lines after your \texttt{documentclass} declaration and recompile the document. You should notice the change in the margins.
+As we continue I will mention any additional packages we need to load, but these will be enough to get us started.
+
+\subsection{Top Matter}
+Just after the \texttt{begin document} statement is the place to add a title, author information and date. This is called the `top matter'.
+It's just a matter of filling out the following:
+
+\begin{verbatim}
+\title{How to Install \LaTeX}
+\author{Carolyn Wood\\
+PAIN UQ Physics Club}
+\date{February 22 2013}
+\maketitle
+\end{verbatim}
+
+The top matter must always end with the \texttt{maketitle} line so that LaTeX knows to stop and typeset it.
+Notice how we can wrap text to a new line by adding double backslashes where we want the break to appear? These are useful in many places and you will see them elsewhere in this tutorial. They are only needed in places where the text won't split on its own - to move to a new paragraph we simply press enter twice and LaTeX does the rest.
+
+If you want a line of whitespace to appear between paragraphs in your actual document, use the \texttt{medskip} and \texttt{bigskip} commands.
+For more information about paragraph formatting, check out the LaTeX Wikibook: \url{http://en.wikibooks.org/wiki/LaTeX/Paragraph_Formatting}.
+
+Add your own `top matter' lines like these to your document and recompile.\footnote{Notice the special way of writing LaTeX? The \LaTeX symbol is a special object. If you remove the backslash from in front of LaTeX you can see the difference.}
+
+\subsection{Main Document}
+Now we are ready to write the main document. As we go, experiment with some of the new commands to see what they do.
+\subsubsection{Abstract}
+Since we are working with the \texttt{article} document class, we can add an abstract with the following line:
+
+\begin{verbatim}
+\begin{abstract}
+This is the abstract
+\end{abstract}
+\end{verbatim}
+
+Abstracts are placed before the first section of the main document (though you can place this chunk of code anywhere in your main document). Add these lines (with some more text of your own) to your file and recompile to see how it looks.
+
+\subsubsection{Sections and Subsections}
+Now, say we would like an introduction, with a heading. To make our title `Introduction' we introduce a section heading:
+
+\begin{verbatim}
+\section{Introduction}
+\end{verbatim}
+
+If I want sections within sections, I use this next line:
+\begin{verbatim}
+\subsection{I am a subsection}
+\end{verbatim}
+
+There is one more hierarchy of section headings:
+\begin{verbatim}
+\subsubsection{I am a sub subsection}
+\end{verbatim}
+
+If you put all these lines into your document, you'll notice LaTeX numbers the headings. 
+
+This is one of LaTeX's most powerful features. 
+
+If I come back to my document and want to add a new section heading above Introduction, or some more subsections, LaTeX will automatically renumber the headings for me. Play around with this and see it in action.
+
+What if I don't want the numbers though? Go back to your section headings and add an asterisk \* just before the left-hand curly bracket. The asterisk suppresses the numbering!
+
+\subsection{More on LaTeX Language}
+Before we continue, a little bit more about using the LaTeX language. 
+
+If you would like to place comments within the code, you precede the comment with a \% . This symbol tells the LaTeX compiler to ignore the line when reading your file.
+Because some symbols, like \%, are reserved for commands, if we want that symbol to appear in our text verbatim, we must precede it with a backslash. This is called `escaping' the symbol. For a verbatim backslash or tilde (the \textasciitilde symbol) there are special commands: 
+
+\begin{verbatim}
+\textbackslash
+\textasciitilde
+\end{verbatim}
+
+You can come back to this once we start inserting text into a document in the next section.
+
+\medskip
+To write something in single quotes, we cannot just use the apostrophe key at the beginning and end. In LaTeX the left-hand quote must be typed using the key usually located to the left of the 1 key.
+
+This is the difference between 'this' and `this.'
+
+Once you start writing text into your document, you can experiment with how these things work.
+
+\subsection{Italics, Superscript \& Subscript}
+To italicize a piece of text, we simply place the text to be italicized between the braces in the following command:
+\begin{verbatim}
+\emph{Italics!}
+\end{verbatim}
+
+Use this in your document to see how these types of commands work.
+
+To write a piece of text as a sub- or superscript, enclose it within these commands:
+\begin{verbatim}
+\textsuperscript{}
+\textsubscript{}
+\end{verbatim}
+
+To use the subscript command you will have to load a special package like this one:
+
+\begin{verbatim}
+\usepackage{fixltx2e}
+\end{verbatim}
+\medskip
+You can also use the following shortcuts if you enter `math mode' by enclosing your text within dollar signs - \$: 
+\begin{verbatim}
+^{text} and _{text}
+\end{verbatim}
+respectively for $super^{scripts}$ and $sub_{scripts}$. If you compare the two methods you'll probably agree that the first look much better than the second.
+
+\section{Environments in LaTeX}
+It is important to declare to LaTeX the `environment' you want to work in. This tells LaTeX how to handle the commands you give it, whether that is formatting text, or placement within a document.
+These declarations follow the format
+\begin{verbatim}
+\begin{???}
+Some other commands and text.
+\end{???}
+\end{verbatim}
+Where the ??? is the name of the environment. Here are some common environments you will need:
+
+\subsection{Equations}
+
+LaTeX handles equations in two ways - in-line, and in separate sections with reference numbers. 
+To write equations you will need to load the \texttt{amsmath} package.
+For some special mathematical symbols you will need other packages.
+
+To include an equation within a body of text, it just needs to be surrounded by \$ signs, as already mentioned above. For instance, the code for $E=mc^2$ is 
+\begin{verbatim}
+$E=mc^2$
+\end{verbatim}
+If I want the equation displayed separately from the rest of the text, I type:
+\begin{verbatim}
+\begin{equation}
+E=mc^2
+\end{equation}
+\end{verbatim}
+Which will look like:
+\begin{equation}
+E=mc^2
+\end{equation}
+
+Notice that LaTeX automatically numbers the equation for you. Once again, if you add more equations above this one, it will rearrange the numbers. 
+If you want to suppress the numbering, simply add an asterisk thus:
+\begin{verbatim}
+\begin{equation*}
+E=mc^2
+\end{equation*}
+\end{verbatim}
+\medskip
+If we want equations with more lines, properly aligned at the equals sign, we use ampersands within the \emph{align} environment (not the equation environment):
+\begin{verbatim}
+\begin{align}
+ f(x) &= (x+a)(x+b) \\
+ &= x^2 + (a+b)x + ab
+\end{align}
+\end{verbatim}
+Which will give us:
+\begin{align}
+ f(x) &= (x+a)(x+b) \\
+ &= x^2 + (a+b)x + ab
+\end{align}
+
+We probably don't want LaTeX to add numbers to both lines here, so we add \texttt{nonumber} to the line we don't want numbered:
+\begin{verbatim}
+f(x) &= (x+a)(x+b) \nonumber\\
+\end{verbatim}
+
+Try this in your own document and see! (Make sure you don't use the double backslashes on the final line of the equation).
+
+\subsubsection{Mathematical Symbols}
+As a physics student, you're going to be working with many different mathematical symbols. Here is an equation which uses some of the common symbols you're likely to need, in LaTeX syntax. Type it into your document to see what it looks like:
+\begin{verbatim}
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\end{equation}
+\end{verbatim}
+
+Now I'm going to refer you to one of my favourite online resources - Scott Pakin's \emph{Comprehensive LaTeX Symbol List}\cite{symbols}:
+\url{http://www.tex.ac.uk/tex-archive/info/symbols/comprehensive/symbols-a4.pdf}
+
+Whenever I need a symbol I look it up in this document to find the LaTeX syntax for it. It also will tell me if I need to load a special package in order to use the symbol.
+If you get a chance to browse the document you'll see that there's an amazing amount of symbols supported in LaTeX, including scripts for languages and even Feynman diagrams.
+
+Have a look at the document and use its index to help you write the following equations\footnote{You'll notice as you work in Texmaker, that it suggests possible commands for you. This is part of what makes it so user-friendly!}
+\begin{equation}
+\Delta x \Delta p \geq \frac{\hbar}{2}
+\label{eq:heisenberg}
+\end{equation}
+
+\begin{equation}
+\oint \vec{E}\cdot\vec{ds}= - \frac{d\Phi_B}{dt}
+\label{eq:Faraday}
+\end{equation}
+That last one might be tricky. If you can't find a symbol easily in the document I've given you, try Google. There is a lot of documentation out there that you can use.
+
+
+\subsubsection{Brackets}
+Brackets will scale to fit around equations of any size if we use the right syntax.
+We already used them for the first equation in this section, but those aren't the kinds of brackets that span several lines.
+What about this equation?
+\begin{equation}
+\dot{a}=H_0 \left[\frac{\Omega_{r,0}}{a(t)^2}+\frac{\Omega_{m,0}}{a(t)}+\Omega_{\Lambda,0}a(t)^2\right]^{\frac{1}{2}}
+\label{eq:Friedmann}
+\end{equation}
+
+Try finding the symbols for it yourself\footnote{The answer is in the Appendix if you get stuck.}. The big square brackets are made using 
+\begin{verbatim}
+\left[ and \right]
+\end{verbatim}
+For curly brackets we say \texttt{left\{ } and \texttt{right\} }. The \texttt{left} and \texttt{right} syntax can be combined with many types of symbols\cite{symbols}.
+
+\subsubsection{Matrices}
+LaTeX is very powerful for handling matrices. Copy the following lines into your document to see how they work:
+\begin{verbatim}
+$\begin{matrix}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+ \end{matrix}$
+\end{verbatim}
+
+The first thing you should notice is that we have a special environment for working with matrices. Next, the ampersands are used to separate columns. This will be important when we look at tables. Note also that the begin and end commands must be enclosed within dollar signs, just like we would need for an in-line equation. You will also need the \texttt{amsmath} package loaded at the top of your document to use this.
+
+What if we want nice braces around our matrix?
+The best way to handle that is to switch to the special environment for bracketed matrices:
+\begin{verbatim}
+$\begin{pmatrix}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+ \end{pmatrix}$
+\end{verbatim}
+
+LaTeX has more of these environments which you can use.\footnote{You can find some here: \url{http://en.wikibooks.org/wiki/LaTeX/Mathematics\# Matrices_and_arrays}}
+
+\subsection{Floats}
+This is where LaTeX really wins over Microsoft Word. Tables and graphics can all be types of `floats.' This means that, unless specifically told, LaTeX will place these elements where ever in the document they fit best, and won't break them up over a page (if you've tried to place a long table into Microsoft Word you might have encountered the frustration of a table that breaks over the page). Of course, this may mean all your nice plots end up at the end of the document, but there are ways of forcing a float to appear in a certain spot in your text. This is called a position specifier. We will look at this as we go.
+
+\subsubsection{Tables}
+Simple tables are quick to produce. We work in the \texttt{tabular} environment\footnote{Note: Dollar signs are not required in this case. Matrices are special as they are mathematical objects within \texttt{amsmath}.}
+\begin{verbatim}
+\begin{tabular}{ c c c }
+  1 & 2 & 3 \\
+  4 & 5 & 6 \\
+  7 & 8 & 9 \\
+\end{tabular}
+\end{verbatim}
+Most of the other symbols should be looking familiar to you by now. But what is \texttt{c c c} about?
+The c stands for `centre.' You can also use `l' and `r' for left and right alignments. The number of letters corresponds to the number of columns.
+We can also add lines in between columns and rows:
+\begin{verbatim}
+\begin{tabular}{ c| c| c}
+  1 & 2 & 3 \\
+  4 & 5 & 6 \\
+  7 & 8 & 9 \\
+\end{tabular}
+\end{verbatim}
+
+OR
+
+\begin{verbatim}
+\begin{tabular}{ c| c| c}
+  1 & 2 & 3 \\
+  \hline
+  4 & 5 & 6 \\
+  7 & 8 & 9 \\
+\end{tabular}
+\end{verbatim}
+
+Take a moment to experiment with this.
+\bigskip
+
+What if we want to put a large amount of data into a table? It would take far too long to type it all out. LaTeX allows us to import data tables from external sources.
+This is beyond the scope of this little introduction, but the LaTeX Wikibook can start you off: \url{http://en.wikibooks.org/wiki/LaTeX/Tables#Using_spreadsheets}
+
+\texttt{excel2latex} might be particularly useful for your purposes.
+\bigskip
+
+Now, none of the tables we've made so far are floats. This is fine, it just means LaTeX will place the tables right where we put them in the text, and if that means breaking them up over a page break, it will go ahead. In academic papers it's more professional to prevent this, and so we need to put the table into a float. We do this by nesting it within the \texttt{table} environment (not to be confused with the \texttt{tabular} environment we're already working with - notice we have both below):
+
+\begin{verbatim}
+\begin{table}[h]
+  \centering
+	\begin{tabular}{ c| c| c}
+	  1 & 2 & 3 \\
+	  \hline
+	  4 & 5 & 6 \\
+	  7 & 8 & 9 \\
+	\end{tabular}
+	\caption{This is a floating table!}
+\end{table}
+\end{verbatim}
+
+Before you copy this into your document, have a look at the square brackets in the first line. This is the position specifier. In this case, we have `h', which stands for `here.' LaTeX will then try its best to put the float at this point in the text. If we really want to make sure the float appears `here' even if it's against LaTeX's best judgement, we add the exclamation mark\footnote{LaTeX will still ignore this if it needs to, but it is much easier to sort out \emph{why} it has happened than in Microsoft Word.}
+
+LaTeX has other position specifiers, which you can find in the Wikibook:
+\url{http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Floats}
+
+You'll also notice I've snuck in an extra `\texttt{caption}' line. It's pretty self-explanatory, but also very important to know! You can add it to both tables and graphics, above or below the \texttt{tabular} lines. There is also the \texttt{centering} line, which does what it says. When placing it within an environment it doesn't need a `end' command, however regular text paragraphs don't have an environment defined, so you will need to create one with \texttt{begin\{center\}} and \texttt{end\{center\}}.
+
+\subsubsection{Graphics}
+First, let's look at how we import graphics into LaTeX.
+
+Where possible, use vector graphics. Certainly, this will be what you want to use if you write a professional journal article. This means .eps and .pdf formats are preferred to .png and .jpg. In fact, regular LaTeX will only support eps formats.
+ 
+In this tutorial we are using pdfLaTeX, which handles .jpg, .png and .pdf formats (but \emph{not} .eps). Remember, however, that if you don't use a vectorised format, your graphics may appear pixelated if their resolution is not good enough.
+
+To handle graphics we must first load the \texttt{graphicx} package. Add this to your preamble just as we have added previous packages.
+
+Now we can simply use:
+\begin{verbatim}
+\includegraphics{picture.pdf}
+\end{verbatim}
+
+`picture.pdf' refers to a picture which is stored in the same folder as your .tex file. If your picture is located elsewhere you will need to use the full path to that picture. 
+If you don't have a .pdf graphic to use, a .jpg format is fine, as long as the resolution is decent.
+
+Of course, graphics come in all kinds of sizes, so we need to be able to scale them:
+
+\begin{verbatim}
+\includegraphics[scale=0.5]{picture.pdf}
+\end{verbatim}
+
+In this case, we mean that we want the graphic to be 0.5 times the original size.
+
+My favourite way of sizing a graphic is to specify its width in relation to the text width:
+
+\begin{verbatim}
+\includegraphics[width=\textwidth]{picture.pdf}
+\end{verbatim}
+
+This is a quick way to add a graphic to a document, but it doesn't allow us much sophistication. In order to add captions and other formatting options, we must embed the command within the \texttt{figure} float environment:
+\begin{verbatim}
+\begin{figure}[h!]
+\centering
+	\includegraphics[width=0.8\textwidth]{picture.pdf}
+\caption{Picture, yo!}
+\end{figure}
+\end{verbatim}
+
+We can also wrap text around a picture, using the \texttt{wrapfigure} environment\footnote{You will also need to load the \texttt{wrapfig} package at the top of the document.}
+\begin{verbatim}
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \begin{center}
+    \includegraphics[width=0.48\textwidth]{picture.pdf}
+  \end{center}
+  \caption{Picture is surrounded by text!}
+\end{wrapfigure}
+\end{verbatim}
+
+\bigskip
+
+I like using subfloats, which can make your work look very professional.
+The Wikibook treats this subject really nicely, so have a look:
+\url{http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Subfloats}
+
+\bigskip
+
+\subsubsection{A Small Tip...}
+If we have an \emph{exceptionally} large amount of figures, LaTeX will become overwhelmed. The way around this is to introduce periodic
+
+\begin{verbatim}
+\clearpage
+\end{verbatim}
+
+lines, which tell LaTeX to stop, place the figures it already has, and start afresh with the next group.
+
+
+\section{Citations, References and Footnotes}
+\label{sec:cite}
+Often we want to refer to a figure or equation in-text. For instance, equation \ref{eq:heisenberg} above is the Heisenberg Equation. Equation \ref{eq:Faraday} is one of Maxwell's equations (Faraday's Law). Equation \ref{eq:Friedmann} is the Friedmann equation.
+What if I want to move equation \ref{eq:Friedmann} between equations \ref{eq:heisenberg} and \ref{eq:Faraday}? Now I have to find every mention of that equation in my text and re-number them, right? Nope!
+LaTeX allows you to place labels with equations, figures and even section headings so that you can refer to them in-text without worrying about the order changing later on.
+
+We simply add one \texttt{label} line:
+\begin{verbatim}
+\begin{equation}
+\dot{a}=H_0 \left[\frac{\Omega_{r,0}}{a(t)^2}+...\right]^{\frac{1}{2}}
+\label{eq:Friedmann}
+\end{equation}
+\end{verbatim}
+
+Try this with all your equations and then, near the bottom of your document, refer back to them using this:
+\begin{verbatim}
+\ref{eq:Friedmann}
+\end{verbatim}
+within the text\footnote{For brackets around the number, try \texttt{eqref} instead.}.
+
+To refer to figures, use `\texttt{fig:}' instead of `\texttt{eq:}' and to refer to sections, use `\texttt{sec:}'. You will notice in Texmaker, as you begin to type the `ref' command, a menu of possible tags will pop up.
+
+You will need to compile your document twice for the reference numbers to appear. This is because LaTeX looks through the whole document for the references on the first compilation, and places the right numbers on the second.
+
+\bigskip
+
+Citations from references are handled a little differently. Instead of referring to a label, they refer back to an item in a bibliography\cite{Wiki}.This will be properly explained in Section\ref{sec:bib} below.
+\bigskip
+
+You might have noticed a few footnotes throughout this document.\footnote{And how professional do they look?}
+
+These are easy! We simply add the following line straight after the spot where we want the footnote's number to appear and LaTeX does the rest:
+\begin{verbatim}
+\footnote{This is a really nice footnote.}
+\end{verbatim}
+
+\section{Table of Contents}
+A Table of Contents can be a lot of work to make, but once again, LaTeX has a simple way of compiling one.
+
+Go back to the start of your document and add the following line straight after your abstract (you will need to compile twice for this as LaTeX need to find all the sections on the first run and make the table on the second):
+\begin{verbatim}
+\tableofcontents
+\end{verbatim}
+
+Now was that easy, or was that easy? 
+\medskip
+If you have unnumbered headings or other things which you would like to have appear in the table of contents, simply mark them with: 
+\begin{verbatim}
+\addcontentsline{toc}{subsection}{??}
+\end{verbatim}
+
+Where ?? is the title of the section as you would like it referred to in the table of contents. We also specify `toc' for table of contents, because LaTeX also allows a list of figures (\texttt{listoffigures}) and a list of tables (\texttt{listoftables}). In the \texttt{addcontentsline} command above, simply use `lof' and `loc' instead of `toc.'
+
+\section{Bibliographies}
+\label{sec:bib}
+\subsection{Book List}
+A bibliography/reference list is essential for an assignment. Once you've come to the end of your main text, add in this line:
+\begin{verbatim}
+\begin{thebibliography}{9}
+\end{verbatim}
+
+You will also want a corresponding
+\begin{verbatim}
+\end{thebiliography}
+\end{verbatim}
+
+Make sure these lines are included just before the \texttt{end document} command.
+
+Compile your document and see what this does.
+
+You'll notice from the syntax that the bibliography is another type of environment. The 9 in curly brackets limits your list to 9 references. Use a two digit number and you can have up to 99 references.\footnote{To read about what this is doing, check out the bibliography section in the Wikibook.}
+
+Now, between the begin and end statements, we place the information for the references.
+Here is an example:
+\begin{verbatim}
+\bibitem{Knight}
+  Randall D. Knight,
+  \emph{Physics for Scientists and Engineers}.
+  Addison-Wesley, Massachusetts,
+  3rd Edition,
+  2012.
+\end{verbatim}
+
+Place the above lines into your document.
+
+\subsection{In-Text Citations}
+The text contained in the \texttt{bibitem} tag is the identifier we use when we want to make an in-text citation.
+
+So, for instance, I have mentioned the symbols list document \cite{symbols} and so it needs to appear in my bibliography. To cite it in-text I add the following at the point of the citation:
+\begin{verbatim}
+\cite{symbols}
+\end{verbatim}
+
+where `symbols' is a tag I have given the reference in the bibliography thus:
+
+\begin{verbatim}
+\bibitem{symbols}
+\end{verbatim}
+
+Use the \texttt{bibitem} tag in your bibliography entry for Knight 2012 to cite in text. 
+Just like with the other references for equations, etc, you will need to compile twice for LaTeX to match the bibitem to the citation.
+
+To add more resources, we simply add new bibitem entries until we're done.
+
+\subsection{Bibtex}
+The above is just a simple way of including resources, but it doesn't necessarily give you the format you would like, and you must enter every reference individually.
+
+Bibtex is a more sophisticated way of handling this. It allows you to keep your references in a separate file which LaTeX then calls when typesetting your bibliography. It is a little beyond the scope of this tutorial, but I urge you to check it out and see how useful it is:
+
+\url{http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management#BibTeX}
+
+\section{Final Advice, Online Resources \& Further Topics}
+Beyond checking out Bibtex, or how to import data tables into LaTeX, you might also like to look into RevTeX-4, which is a set of packages often used to format documents for scientific journals, adding more of a professional appearance.
+
+LaTeX can also be used to make PowerPoint slides. Beamer is one of the packages you can use: \url{http://en.wikibooks.org/wiki/LaTeX/Presentations}
+\medskip
+
+The two main references this document uses are by far the most useful things I can recommend to keep you going.
+\medskip
+
+LaTeX is well-documented on the internet, so a simple Google search for a query will likely turn up many cases of other people having the same problem, with solutions.
+Often this will lead you to sites like \url{http://tex.stackexchange.com/} where a whole community of users help each other with queries.
+\medskip
+My best advice is - if you know what you want to do in LaTeX but not how to do it, assume that it is possible (LaTeX is very comprehensive) and that many people before you have wondered the same thing, asked about it on the internet, and found a solution. Experiment with syntax (Texmaker might suggest the very command you're looking for) and don't be afraid to ask others for help!
+ 
+\medskip
+Go forth and LaTeX all the things!
+
+\begin{thebibliography}{9}
+\bibitem{Wiki}
+  \LaTeX \emph{Wikibook} \url{http://en.wikibooks.org/wiki/LaTeX}
+\bibitem{symbols}
+	Scott Pakin,
+	\emph{The Comprehensive LaTeX Symbols List}.
+	\url{http://www.tex.ac.uk/tex-archive/info/symbols/comprehensive/symbols-a4.pdf}
+	2009.
+  
+\end{thebibliography}
+
+\bigskip
+\bigskip
+
+\appendix
+\section{Appendix}
+But wait, I promised you an appendix! To add an appendix, we simply place these lines:
+\begin{verbatim}
+\appendix
+\section{Appendix}
+\end{verbatim}
+You can add as many sections as you like, \emph{and} they will appear in the table of contents. The appendices can also be placed before or after the bibliography (but everything must appear before the \texttt{end document} command.
+
+\subsection{Answers}
+Here is the answer to Equation \ref{eq:Friedmann}:
+\begin{verbatim}
+\begin{equation}
+\dot{a}=H_0 \left[\frac{\Omega_{r,0}}{a(t)^2}+\frac{\Omega_{m,0}}
+{a(t)}+\Omega_{\Lambda,0}a(t)^2\right]^{\frac{1}{2}}
+\label{eq:Friedmann}
+\end{equation}
+\end{verbatim}
+\medskip
+
+\subsection{Extra Goodies}
+
+\subsubsection{Note to Physicists}
+\LaTeX has packages to help you write in Dirac (bra-ket) notation, and insert Feynmann diagrams!
+
+\url{http://www.dfcd.net/articles/latex/latex.html}\footnote{This page is also a quick reference to some useful maths symbols.} \\
+\url{http://www.sharelatex.com/learn/Feynman_diagrams}
+
+\subsubsection{Note to Linguists and Speakers of Other Languages}
+There are \LaTeX packages for syntax trees, dependency trees and glosses.
+
+\url{http://en.wikibooks.org/wiki/LaTeX/Linguistics} \\
+\url{http://www.essex.ac.uk/linguistics/external/clmt/latex4ling/} 
+
+Many special characters are available, as you will see if you browse Scott Pakin's Symbols List, as well as whole environments for languages including Chinese, Japanese and Cyrillic\footnote{Also Tengwar...  \url{http://tolklang.quettar.org/fonts/}}. \\
+
+\url{http://en.wikibooks.org/wiki/LaTeX/Internationalization}
+
+
+\subsection{Acknowledgements}
+Many thanks to the various LaTeX-knowledgeable people who suggested improvements and found mistakes when this tutorial was first made at the start of 2013, and also to the beta-testers who came to it completely new for the second revision. 
+
+Without them you would have a much more inferior product to learn from!
+
+
+\end{document}
